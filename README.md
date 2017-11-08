@@ -2,7 +2,7 @@
 <p>Working version <a href="https://react-slider.herokuapp.com/" target="_blank">here</a></p>
 
 <h2>Cool News</h2>
-Will hopefully be trying to turn this into an npm module shortly, so you don't have to code it out yourself.
+Will hopefully be trying to turn this into an npm module shortly, so you don't have to code it out yourself.<br>
 
 Installation<br>
 1.) <code>npm install</code> <br>
