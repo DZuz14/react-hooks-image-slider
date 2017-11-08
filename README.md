@@ -1,6 +1,10 @@
 <h1> React Slider</h1>
 <p>Working version <a href="https://react-slider.herokuapp.com/" target="_blank">here</a></p>
 
+<h2>Cool News</h2>
+------------------
+Will hopefully be trying to turn this into an npm module shortly, so you don't have to code it out yourself.
+
 Installation<br>
 1.) <code>npm install</code> <br>
 2.) <code>npm start</code> <br>
