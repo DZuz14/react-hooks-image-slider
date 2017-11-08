@@ -4,6 +4,7 @@
 <h2>Cool News</h2>
 Will hopefully be trying to turn this into an npm module shortly, so you don't have to code it out yourself.
 <br>
+<br>
 
 Installation<br>
 1.) <code>npm install</code> <br>
