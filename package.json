@@ -14,12 +14,7 @@
   },
   "author": "Daniel Zuzevich",
   "license": "ISC",
-  "browsersList": [
-    "last 2 versions",
-    "ie 10"
-  ],
   "dependencies": {
-    "autoprefixer": "^7.1.2",
     "axios": "^0.17.0",
     "express": "^4.15.4",
     "prop-types": "^15.5.10",
