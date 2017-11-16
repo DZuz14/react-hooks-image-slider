@@ -1,17 +1,13 @@
-import React, { Component } from 'react';
-require('./global.scss');
+import React, { Component } from 'react'
+import Slider from './Slider'
+require('./style.scss')
 
-export default class extends Component {
-  constructor(props) {
-    super(props);
-
-  }
-
+export default class App extends Component {
   render() {
     return (
-      <div>
-      {this.props.children}
+      <div className="app">
+        <Slider />
       </div>
-    );
+    )
   }
 }

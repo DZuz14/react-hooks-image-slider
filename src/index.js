@@ -1,8 +1,11 @@
-import React from 'react';
-import { render } from 'react-dom';
-import { Router, browserHistory } from 'react-router';
-import routes from './routes';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { BrowserRouter } from 'react-router-dom'
+import App from './components/App'
 
-render(
-  <Router history={browserHistory} routes={routes} />
-, document.querySelector('.main'));
+ReactDOM.render (
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>,
+  document.querySelector('.main')
+)

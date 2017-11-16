@@ -1,44 +1,57 @@
-var webpack = require('webpack');
-var path = require('path');
-var autoprefixer = require('autoprefixer');
+const path = require('path');
+const webpack = require('webpack')
+const autoprefixer = require('autoprefixer')
 
 module.exports = {
-  // Start building in src folder
-  entry: [
-    './src/index'
-  ],
+  entry: './src/index.js',
   module: {
-   loaders: [
-     {
-       // Run js files through babel module
-       test: /\.js?$/, loader: 'babel', exclude: /node_modules/
-     },
-     {
-        // Enable SCSS functionality
-        test: /\.scss$/,
-        loaders: ["style", "css", "postcss-loader", "sass"]
-     }
-   ]
- },
- postcss: [ autoprefixer({ browsers: ['last 2 versions'] }) ],
- 
-  resolve: {
-    extensions: ['', '.js']
+    rules: [
+      /* JS */
+      {
+        test: /\.js?$/,
+        loader: 'babel-loader',
+        exclude: /node_modules/
+      },
+      /* SCSS */
+      {
+        test: /\.scss?$/,
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader'
+          },
+          {
+            loader: 'postcss-loader',
+            options: {
+              config: {
+                  path: './config/postcss.config.js'
+              }
+            }
+          },
+          {
+            loader: 'sass-loader'
+          }
+        ]
+      }
+    ]
   },
-  // Output to dist folder as bundle.js
   output: {
-    path: path.join(__dirname, '/dist'),
-    publicPath: '/',
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+    path: path.resolve(__dirname, 'dist')
   },
-  // Enable hot reload while webpack dev server is in use
+  resolve: {
+   extensions: ['.js']
+ },
   devServer: {
     contentBase: './dist',
-    hot: true
+    hot: true,
+    historyApiFallback: true
   },
   plugins: [
-    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin()
+    new webpack.NoEmitOnErrorsPlugin()
   ]
-};
+}
