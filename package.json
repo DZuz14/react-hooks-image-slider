@@ -1,6 +1,9 @@
 {
   "name": "react-starter-2.0",
   "version": "2.0.0",
+  "engines": {
+    "node": "6.11.2"
+  },
   "description": "Get up and running quickly with this React Starter Kit. Express 4, Autoprefixer CSS/SCSS, React Router V4, Webpack 2, Hot-Reloading.",
   "main": "server.js",
   "scripts": {
