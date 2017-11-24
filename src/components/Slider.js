@@ -61,7 +61,7 @@ export default class Slider extends Component {
         <div className="slider-wrapper"
           style={{
             transform: `translateX(${translateValue}px)`,
-            transition: 'transform ease-out 0.3s'
+            transition: 'transform ease-out 0.35s'
           }}>
           { this.renderSlides() }
         </div>
