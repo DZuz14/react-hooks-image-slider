@@ -1,13 +1,15 @@
 html, body, .app, .main {
   height: 100%;
   width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 .slider {
   position: relative;
-  max-width: 1000px;
+  width: 100%;
   margin: 0 auto;
-  height: 600px;
+  height: 100%;
   overflow: hidden;
   white-space: nowrap;
 
@@ -30,9 +32,15 @@ html, body, .app, .main {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #fff;
+  background: #f9f9f9;
   border-radius: 50%;
-  cursor: pointer
+  cursor: pointer;
+  transition: transform ease-in .1s;
+
+  &:hover {
+    transition: transform ease-in .1s;
+    transform: scale(1.1)
+  }
 }
 
 .slider-right-arrow {
@@ -61,10 +69,11 @@ html, body, .app, .main {
 
 .dots-container {
   position: absolute;
-  bottom: 7%;
+  bottom: 0;
   width: 100%;
   text-align: center;
   z-index: 9999;
+  padding: 5px 0;
 
   .dot {
     background: #222;
