@@ -59,15 +59,15 @@ export default class Slider extends Component {
     console.log('Update')
 
     setTimeout(() => {
-      this.setState({ testing: true })
-    }, 3000)
+      this.goToNextSlide()
+    }, 4000)
   }
 
   render() {
     const { images, index, translateValue, autoplay } = this.state
     return (
       <div className="slider">
-
+        <p>Currently testing autoplay...dont mind me =)</p>
         <div className="slider-wrapper"
           style={{
             transform: `translateX(${translateValue}px)`,
@@ -81,13 +81,13 @@ export default class Slider extends Component {
           quantity={images.length}
           dotClick={this.handleDotClick} />
 
-        <SliderLeftArrow slideRight={this.handleLeftClick} />
-        <SliderRightArrow slideLeft={this.handleRightClick} />
+        <SliderLeftArrow prevSlide={this.goToPreviousSlide} />
+        <SliderRightArrow nextSlide={this.goToNextSlide} />
       </div>
     )
   }
 
-  handleLeftClick = () => {
+  goToPreviousSlide = () => {
     if(this.state.index === 0)
       return
 
@@ -97,7 +97,7 @@ export default class Slider extends Component {
     })
   }
 
-  handleRightClick = () => {
+  goToNextSlide = () => {
     const { images } = this.state
 
     if(this.state.index === images.length - 1) {

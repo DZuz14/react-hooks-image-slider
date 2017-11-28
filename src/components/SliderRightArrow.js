@@ -1,8 +1,8 @@
 import React from 'react'
 
-const SliderRightArrow = ({ slideLeft }) => {
+const SliderRightArrow = ({ nextSlide }) => {
   return (
-    <div className="slider-right-arrow" onClick={slideLeft}>
+    <div className="slider-right-arrow" onClick={nextSlide}>
       <img src="img/slider-right-arrow.svg" />
     </div>
   )
