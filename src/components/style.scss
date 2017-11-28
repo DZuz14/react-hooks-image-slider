@@ -96,3 +96,18 @@ html, body, .app, .main {
     background: #fff;
   }
 }
+
+.autoplay {
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 5px 10px;
+  background: #ddd;
+  color: #333;
+  font-size: 15px;
+
+  p {
+    margin: 0
+  }
+}

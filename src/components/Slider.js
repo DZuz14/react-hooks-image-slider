@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import axios from 'axios'
 import Slide from './Slide'
 import Dots from './Dots'
+import Autoplay from './Autoplay'
 import SliderLeftArrow from './SliderLeftArrow'
 import SliderRightArrow from './SliderRightArrow'
 
@@ -12,7 +13,8 @@ export default class Slider extends Component {
     this.state = {
       images: [],
       index: 0,
-      translateValue: 0
+      translateValue: 0,
+      autoplay: false
     }
   }
 
@@ -53,18 +55,20 @@ export default class Slider extends Component {
     }
   }
 
-  componentDidUpdate = () => {
+  toggleAutoplay = () => this.setState({ autoplay: !this.state.autoplay })
 
-    setTimeout(() => {
-      this.goToNextSlide()
-    }, 4000)
+  componentDidUpdate = () => {
+    if(this.state.autoplay) {
+      setTimeout(() => {
+        this.goToNextSlide()
+      }, 4000)
+    }
   }
 
   render() {
     const { images, index, translateValue, autoplay } = this.state
     return (
       <div className="slider">
-        <p>Currently testing autoplay...dont mind me =)</p>
         <div className="slider-wrapper"
           style={{
             transform: `translateX(${translateValue}px)`,
@@ -72,6 +76,8 @@ export default class Slider extends Component {
           }}>
           { this.renderSlides() }
         </div>
+
+        <Autoplay toggle={this.toggleAutoplay} autoplay={autoplay} />
 
         <Dots
           index={index}
