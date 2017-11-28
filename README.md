@@ -1,6 +1,8 @@
 ## Working Version ##
 https://react-slider.herokuapp.com/
 
+** Pull Requests are welcome by all. **
+
 You can install it locally by following these instructions:
 
 1. `git clone https://github.com/DZuz14/React-Image-Viewer.git`
