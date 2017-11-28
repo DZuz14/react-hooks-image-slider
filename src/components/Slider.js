@@ -90,8 +90,12 @@ export default class Slider extends Component {
   handleRightClick = () => {
     const { images } = this.state
 
-    if(this.state.index === images.length - 1)
-      return
+    if(this.state.index === images.length - 1) {
+      return this.setState({
+        translateValue: 0,
+        index: 0
+      })
+    }
 
     this.setState({
       translateValue: this.state.translateValue -= this.slideWidth(),

@@ -52,6 +52,10 @@ html, body, .app, .main {
 
   img {
     transform: translate(2px, 0);
+
+    &:focus {
+      outline: 0;
+    }
   }
 }
 
@@ -64,6 +68,10 @@ html, body, .app, .main {
 
   img {
     transform: translate(-2px, 0);
+
+    &:focus {
+      outline: 0;
+    }
   }
 }
 
