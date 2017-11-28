@@ -12,7 +12,8 @@ export default class Slider extends Component {
     this.state = {
       images: [],
       index: 0,
-      translateValue: 0
+      translateValue: 0,
+      autoplay: true
     }
   }
 
@@ -53,10 +54,17 @@ export default class Slider extends Component {
     }
   }
 
+  updateSlide = () => {
+    // Do some type of setInterval function here...
+  }
+
   render() {
-    const { images, index, translateValue } = this.state
+    const { images, index, translateValue, autoplay } = this.state
     return (
       <div className="slider">
+
+        {/* Autoplay functionality */}
+        { autoplay ? this.updateSlide() : null }
 
         <div className="slider-wrapper"
           style={{
