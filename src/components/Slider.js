@@ -12,9 +12,7 @@ export default class Slider extends Component {
     this.state = {
       images: [],
       index: 0,
-      translateValue: 0,
-      autoplay: true,
-      testing: false
+      translateValue: 0
     }
   }
 
@@ -56,7 +54,6 @@ export default class Slider extends Component {
   }
 
   componentDidUpdate = () => {
-    console.log('Update')
 
     setTimeout(() => {
       this.goToNextSlide()
