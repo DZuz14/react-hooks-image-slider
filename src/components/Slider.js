@@ -57,11 +57,19 @@ export default class Slider extends Component {
 
   toggleAutoplay = () => this.setState({ autoplay: !this.state.autoplay })
 
-  componentDidUpdate = () => {
-    if(this.state.autoplay) {
-      setTimeout(() => {
-        this.goToNextSlide()
-      }, 4000)
+  componentDidUpdate = (prevProps, prevState) => {
+    const { autoplay } = this.state
+
+    if(autoplay && prevState.autoplay !== autoplay) {
+      let x = window.setInterval(() =>  {
+                this.goToNextSlide()
+              }, 2500)
+
+      this.setState({ interval : x })
+    }
+    else if(!autoplay && prevState.autoplay !== autoplay) {
+      let x = window.clearInterval(this.state.interval)
+      this.setState({ interval : x })
     }
   }
 
