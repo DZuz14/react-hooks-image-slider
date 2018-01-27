@@ -1,32 +1,29 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import * as actions from '../actions'
 import axios from 'axios'
+
 import Slide from './Slide'
 import Dots from './Dots'
 import Autoplay from './Autoplay'
 import SliderLeftArrow from './SliderLeftArrow'
 import SliderRightArrow from './SliderRightArrow'
 
-export default class Slider extends Component {
+class Slider extends Component {
   constructor(props) {
     super(props)
 
     this.state = {
-      images: [],
       index: 0,
       translateValue: 0,
       autoplay: false
     }
   }
 
-  componentDidMount = () => {
-    axios.get('slider-config.json')
-    .then(res => {
-      this.setState({ images: res.data })
-    })
-  }
+  componentDidMount = () => this.props.getSliderImages()
 
   renderSlides = () => {
-    const { images } = this.state
+    const { images } = this.props
     let slides = []
 
     for(let i = 0; i < images.length; i++)
@@ -36,7 +33,7 @@ export default class Slider extends Component {
   }
 
   handleDotClick = i => {
-    const { images } = this.state
+    const { images } = this.props
 
     if(i === this.state.index)
       return
@@ -74,7 +71,9 @@ export default class Slider extends Component {
   }
 
   render() {
-    const { images, index, translateValue, autoplay } = this.state
+    const { images } = this.props
+    const { index, translateValue, autoplay } = this.state
+
     return (
       <div className="slider">
         <div className="slider-wrapper"
@@ -109,7 +108,7 @@ export default class Slider extends Component {
   }
 
   goToNextSlide = () => {
-    const { images } = this.state
+    const { images } = this.props
 
     if(this.state.index === images.length - 1) {
       return this.setState({
@@ -129,5 +128,10 @@ export default class Slider extends Component {
     return slide.clientWidth
   }
 
-
 } // End Class
+
+const mapStateToProps = ({ sliderImages }) => {
+  return { images: sliderImages }
+}
+
+export default connect(mapStateToProps, actions)(Slider)

@@ -1,10 +1,10 @@
 {
-  "name": "react-starter-2.0",
+  "name": "react-redux-image-viewer",
   "version": "2.0.0",
   "engines": {
     "node": "6.11.2"
   },
-  "description": "Get up and running quickly with this React Starter Kit. Express 4, Autoprefixer CSS/SCSS, React Router V4, Webpack 2, Hot-Reloading.",
+  "description": "Basic Example of An Image Viewer/Slider Written in React and Redux.",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -13,14 +13,26 @@
     "postinstall": "webpack -p --config webpack.prod.config.js"
   },
   "browsersList": [
-    "last 2 versions",
+    "last 3 versions",
     "ie 10"
   ],
   "author": "Daniel Zuzevich",
   "license": "ISC",
   "dependencies": {
-    "autoprefixer": "^7.1.6",
     "axios": "^0.17.0",
+    "express": "^4.15.4",
+    "prop-types": "^15.5.10",
+    "react": "^15.6.1",
+    "react-dom": "^15.6.1",
+    "react-router-dom": "^4.1.2",
+    "react-test-renderer": "^15.6.1",
+    "react-redux": "^5.0.6",
+    "react-router-dom": "^4.2.2",
+    "redux": "^3.7.2",
+    "redux-thunk": "^2.2.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^7.1.6",
     "babel-core": "^6.25.0",
     "babel-loader": "^7.1.1",
     "babel-plugin-transform-class-properties": "^6.24.1",
@@ -30,22 +42,14 @@
     "babel-preset-react": "^6.24.1",
     "css-loader": "^0.28.4",
     "enzyme": "^2.9.1",
-    "express": "^4.15.4",
     "jest": "^20.0.4",
     "node-sass": "^4.5.3",
     "postcss-loader": "^2.0.6",
-    "prop-types": "^15.5.10",
-    "react": "^15.6.1",
-    "react-dom": "^15.6.1",
-    "react-router-dom": "^4.1.2",
-    "react-test-renderer": "^15.6.1",
+    "webpack-dev-middleware": "^1.12.0",
+    "webpack-dev-server": "^2.7.1",
+    "webpack-hot-middleware": "^2.18.2",
     "sass-loader": "^6.0.6",
     "style-loader": "^0.18.2",
     "webpack": "^3.5.4"
-  },
-  "devDependencies": {
-    "webpack-dev-middleware": "^1.12.0",
-    "webpack-dev-server": "^2.7.1",
-    "webpack-hot-middleware": "^2.18.2"
   }
 }
