@@ -1,5 +1,5 @@
 ## Working Version ##
-https://react-slider.herokuapp.com/
+https://react-slider.herokuapp.com/ 
 
 ** Pull Requests are welcome by all. **
 
