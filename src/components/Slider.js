@@ -20,24 +20,6 @@ class Slider extends Component {
     return images.map((curr, i) => <Slide key={i} image={images[i]} />)
   }
 
-  handleDotClick = i => {
-    const { index, translateValue, setTranslateValue, setIndex } = this.props
-    if(i === index)
-      return
-
-    if(i > index) {
-      setTranslateValue(
-        -(i * this.slideWidth())
-      )
-    }
-    else {
-      setTranslateValue(
-        translateValue + ((index - i) * (this.slideWidth()))
-      )
-    }
-    setIndex(i)
-  }
-
   render() {
     const { images, index, translateValue } = this.props
 
@@ -63,7 +45,7 @@ class Slider extends Component {
   }
 
   /**
-  * Below section handles arrow click events, and getting the current width of the slide.
+  * Below section handles arrow and dot click events, and getting the current width of the slide.
   */
   goToPreviousSlide = () => {
     const { index, translateValue, setTranslateValue, setIndex } = this.props
@@ -85,6 +67,25 @@ class Slider extends Component {
     }
     setTranslateValue(translateValue - this.slideWidth())
     setIndex(index + 1)
+  }
+
+  handleDotClick = i => {
+    const { index, translateValue, setTranslateValue, setIndex } = this.props
+    if(i === index)
+      return
+
+    if(i > index) {
+      setTranslateValue(
+        -(i * this.slideWidth())
+      )
+    }
+    else {
+      setTranslateValue(
+        translateValue + ((index - i) * (this.slideWidth()))
+      )
+    }
+
+    setIndex(i)
   }
 
   slideWidth = () => {
