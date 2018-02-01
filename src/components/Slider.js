@@ -5,7 +5,6 @@ import axios from 'axios'
 
 import Slide from './Slide'
 import Dots from './Dots'
-import Autoplay from './Autoplay'
 import SliderLeftArrow from './SliderLeftArrow'
 import SliderRightArrow from './SliderRightArrow'
 
@@ -16,36 +15,13 @@ class Slider extends Component {
 
   componentDidMount = () => this.props.getSliderImages()
 
-  /*
-  componentDidUpdate = (prevProps, prevState) => {
-    const { autoplay } = this.state
-
-    if(autoplay && prevState.autoplay !== autoplay) {
-      let x = window.setInterval(() =>  {
-                this.goToNextSlide()
-              }, 2500)
-
-      this.setState({ interval : x })
-    }
-    else if(!autoplay && prevState.autoplay !== autoplay) {
-      let x = window.clearInterval(this.state.interval)
-      this.setState({ interval : x })
-    }
-  }*/
-
   renderSlides = () => {
     const { images } = this.props
-    let slides = []
-    for(let i = 0; i < images.length; i++)
-      slides.push(<Slide key={i} image={images[i].image} />)
-
-    return slides
+    return images.map((curr, i) => <Slide key={i} image={images[i]} />)
   }
 
   handleDotClick = i => {
     const { index, translateValue, setTranslateValue, setIndex } = this.props
-    console.log(index)
-    console.log(i)
     if(i === index)
       return
 
@@ -53,24 +29,17 @@ class Slider extends Component {
       setTranslateValue(
         -(i * this.slideWidth())
       )
-      setIndex(i)
-      return
     }
     else {
       setTranslateValue(
         translateValue + ((index - i) * (this.slideWidth()))
       )
-      setIndex(i)
     }
-  }
-
-  toggleAutoplay = () => {
-    const { autoplay, toggleAutoplay } = this.props
-    toggleAutoplay(!autoplay)
+    setIndex(i)
   }
 
   render() {
-    const { images, index, translateValue, autoplay } = this.props
+    const { images, index, translateValue } = this.props
 
     return (
       <div className="slider">
@@ -81,8 +50,6 @@ class Slider extends Component {
           }}>
           { this.renderSlides() }
         </div>
-
-        <Autoplay toggle={this.toggleAutoplay} autoplay={autoplay} />
 
         <Dots
           index={index}
@@ -100,35 +67,24 @@ class Slider extends Component {
   */
   goToPreviousSlide = () => {
     const { index, translateValue, setTranslateValue, setIndex } = this.props
-    let currentTranslateVal = translateValue
-        currentTranslateVal = currentTranslateVal + this.slideWidth()
-
-    let currentIndex = index
-        currentIndex = currentIndex - 1
 
     if(index === 0)
       return
 
-    setTranslateValue(currentTranslateVal)
-    setIndex(currentIndex)
+    setTranslateValue(translateValue + this.slideWidth())
+    setIndex(index - 1)
   }
 
   goToNextSlide = () => {
     const { images, index, translateValue, setTranslateValue, setIndex } = this.props
-    let currentTranslateVal = translateValue
-        currentTranslateVal = currentTranslateVal - this.slideWidth()
-
-    let currentIndex = index
-        currentIndex = currentIndex + 1
 
     if(index === images.length - 1) {
       setTranslateValue(0)
       setIndex(0)
       return
     }
-
-    setTranslateValue(currentTranslateVal)
-    setIndex(currentIndex)
+    setTranslateValue(translateValue - this.slideWidth())
+    setIndex(index + 1)
   }
 
   slideWidth = () => {
@@ -142,8 +98,7 @@ const mapStateToProps = ({ slider }) => {
   return {
     images: slider.images,
     index: slider.index,
-    translateValue: slider.translateValue,
-    autoplay: slider.autoplay
+    translateValue: slider.translateValue
   }
 }
 

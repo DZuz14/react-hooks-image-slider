@@ -1,11 +1,1 @@
-[
-  {
-    "image": "aurora"
-  },
-  {
-    "image": "canyon"
-  },
-  {
-    "image": "martin"
-  }
-]
+["aurora", "canyon", "martin"]
