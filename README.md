@@ -1,5 +1,5 @@
 ## Working Version ##
-https://react-slider.herokuapp.com/ (Build is currently broken, need to fix it this week, so no preview available right now)
+https://react-slider.herokuapp.com/ 
 
 ** Pull Requests are welcome by all. **
 
