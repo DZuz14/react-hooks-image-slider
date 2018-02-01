@@ -12,48 +12,11 @@ import SliderRightArrow from './SliderRightArrow'
 class Slider extends Component {
   constructor(props) {
     super(props)
-
-    this.state = {
-      index: 0,
-      translateValue: 0,
-      autoplay: false
-    }
   }
 
   componentDidMount = () => this.props.getSliderImages()
 
-  renderSlides = () => {
-    const { images } = this.props
-    let slides = []
-
-    for(let i = 0; i < images.length; i++)
-      slides.push(<Slide key={i} image={images[i].image} />)
-
-    return slides
-  }
-
-  handleDotClick = i => {
-    const { images } = this.props
-
-    if(i === this.state.index)
-      return
-
-    if(i > this.state.index) {
-      return this.setState({
-        index: i,
-        translateValue: -(i * this.slideWidth())
-      })
-    }
-    else {
-      this.setState({
-        index: i,
-        translateValue: this.state.translateValue += ((this.state.index - i) * (this.slideWidth()))
-      })
-    }
-  }
-
-  toggleAutoplay = () => this.setState({ autoplay: !this.state.autoplay })
-
+  /*
   componentDidUpdate = (prevProps, prevState) => {
     const { autoplay } = this.state
 
@@ -68,11 +31,46 @@ class Slider extends Component {
       let x = window.clearInterval(this.state.interval)
       this.setState({ interval : x })
     }
+  }*/
+
+  renderSlides = () => {
+    const { images } = this.props
+    let slides = []
+    for(let i = 0; i < images.length; i++)
+      slides.push(<Slide key={i} image={images[i].image} />)
+
+    return slides
+  }
+
+  handleDotClick = i => {
+    const { index, translateValue, setTranslateValue, setIndex } = this.props
+    console.log(index)
+    console.log(i)
+    if(i === index)
+      return
+
+    if(i > index) {
+      setTranslateValue(
+        -(i * this.slideWidth())
+      )
+      setIndex(i)
+      return
+    }
+    else {
+      setTranslateValue(
+        translateValue + ((index - i) * (this.slideWidth()))
+      )
+      setIndex(i)
+    }
+  }
+
+  toggleAutoplay = () => {
+    const { autoplay, toggleAutoplay } = this.props
+    toggleAutoplay(!autoplay)
   }
 
   render() {
-    const { images } = this.props
-    const { index, translateValue, autoplay } = this.state
+    const { images, index, translateValue, autoplay } = this.props
 
     return (
       <div className="slider">
@@ -97,30 +95,40 @@ class Slider extends Component {
     )
   }
 
+  /**
+  * Below section handles arrow click events, and getting the current width of the slide.
+  */
   goToPreviousSlide = () => {
-    if(this.state.index === 0)
+    const { index, translateValue, setTranslateValue, setIndex } = this.props
+    let currentTranslateVal = translateValue
+        currentTranslateVal = currentTranslateVal + this.slideWidth()
+
+    let currentIndex = index
+        currentIndex = currentIndex - 1
+
+    if(index === 0)
       return
 
-    this.setState({
-      translateValue: this.state.translateValue += this.slideWidth(),
-      index: this.state.index -= 1
-    })
+    setTranslateValue(currentTranslateVal)
+    setIndex(currentIndex)
   }
 
   goToNextSlide = () => {
-    const { images } = this.props
+    const { images, index, translateValue, setTranslateValue, setIndex } = this.props
+    let currentTranslateVal = translateValue
+        currentTranslateVal = currentTranslateVal - this.slideWidth()
 
-    if(this.state.index === images.length - 1) {
-      return this.setState({
-        translateValue: 0,
-        index: 0
-      })
+    let currentIndex = index
+        currentIndex = currentIndex + 1
+
+    if(index === images.length - 1) {
+      setTranslateValue(0)
+      setIndex(0)
+      return
     }
 
-    this.setState({
-      translateValue: this.state.translateValue -= this.slideWidth(),
-      index: this.state.index += 1
-    })
+    setTranslateValue(currentTranslateVal)
+    setIndex(currentIndex)
   }
 
   slideWidth = () => {
@@ -130,8 +138,13 @@ class Slider extends Component {
 
 } // End Class
 
-const mapStateToProps = ({ sliderImages }) => {
-  return { images: sliderImages }
+const mapStateToProps = ({ slider }) => {
+  return {
+    images: slider.images,
+    index: slider.index,
+    translateValue: slider.translateValue,
+    autoplay: slider.autoplay
+  }
 }
 
 export default connect(mapStateToProps, actions)(Slider)

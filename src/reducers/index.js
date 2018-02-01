@@ -1,8 +1,8 @@
 import { combineReducers } from 'redux'
-import sliderImages from './images-reducer'
+import slider from './slider'
 
 const rootReducer = combineReducers({
-  sliderImages
+  slider
 })
 
 export default rootReducer
