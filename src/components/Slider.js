@@ -14,11 +14,7 @@ class Slider extends Component {
   }
 
   componentDidMount = () => this.props.getSliderImages()
-
-  renderSlides = () => {
-    const { images } = this.props
-    return images.map((curr, i) => <Slide key={i} image={images[i]} />)
-  }
+  renderSlides = () => this.props.images.map((curr, i) => <Slide key={i} image={images[i]} />)
 
   render() {
     const { images, index, translateValue } = this.props
