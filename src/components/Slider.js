@@ -74,16 +74,10 @@ class Slider extends Component {
     if(i === index)
       return
 
-    if(i > index) {
-      setTranslateValue(
-        -(i * this.slideWidth())
-      )
-    }
-    else {
-      setTranslateValue(
-        translateValue + ((index - i) * (this.slideWidth()))
-      )
-    }
+    if(i > index)
+      setTranslateValue(-(i * this.slideWidth()))
+    else
+      setTranslateValue(translateValue + ((index - i) * (this.slideWidth())))
 
     setIndex(i)
   }
