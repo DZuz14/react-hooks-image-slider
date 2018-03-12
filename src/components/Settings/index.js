@@ -1,36 +1,26 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import * as actions from '../../actions'
+import * as actions from '../../actions/settings'
 import Switch from 'react-toggle-switch'
 require('./style.scss')
 
 class Settings extends Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      switched: false
-    }
-  }
-
-  toggleSwitch = name => {
-    console.log(name)
-    this.setState({ switched: !this.state.switched })
-  }
 
   render() {
+    const { showDots, coolButtons, toggleSetting } = this.props
+
     return (
       <div className="settings">
         <div className="menu">
-          <h3 style={{
-            marginLeft: '20px',
-            marginBottom: '40px'
-          }}>
-            Work in progress...
-          </h3>
 
           <div className="setting">
-            <Switch onClick={() => this.toggleSwitch('dots')} on={this.state.switched} />
+            <div className="text">Show Dots</div>
+            <Switch onClick={() => toggleSetting('showDots')} on={showDots} />
+          </div>
+
+          <div className="setting">
+            <div className="text">Cool Buttons</div>
+            <Switch onClick={() => toggleSetting('coolButtons')} on={coolButtons} />
           </div>
 
         </div>
@@ -39,12 +29,12 @@ class Settings extends Component {
   }
 }
 
-/*
-const mapStateToProps = (state) => {
+
+const mapStateToProps = ({ settings }) => {
   return {
-    dots: state.settings.dots
+    showDots: settings.showDots,
+    coolButtons: settings.coolButtons
   }
 }
-*/
 
-export default connect(null)(Settings)
+export default connect(mapStateToProps, actions)(Settings)

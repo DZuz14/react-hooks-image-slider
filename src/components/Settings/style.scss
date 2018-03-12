@@ -1,1 +1,24 @@
 .switch{border:1px solid #ccc;width:50px;height:26px;border-radius:13px;cursor:pointer;display:inline-block}.switch-toggle{border:1px solid #999;box-shadow:1px 1px 1px #ccc;width:25px;height:24px;left:0;border-radius:12px;background:#fff;position:relative;transition:left .2s ease-in-out}.switch.on{background:green}.switch.on .switch-toggle{left:23px}.switch.disabled{cursor:not-allowed}
+
+.switch {
+  transform: translate(30px, -3px);
+}
+
+.menu {
+  padding: 25px 0 0 25px;
+
+  .setting {
+    font-size: 20px;
+    display: flex;
+
+    &:not(:last-of-type) {
+      margin-bottom: 20px;
+    }
+
+    .text {
+      width: 100px;
+    }
+
+  }
+
+}
