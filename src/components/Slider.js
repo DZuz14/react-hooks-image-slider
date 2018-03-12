@@ -33,7 +33,12 @@ class Slider extends Component {
 
     return (
       <div className="slider">
-        <img src="./img/settings.svg" className="settings-icon" onClick={this.toggleSettings} />
+        {
+          settingsVisible ?
+            <img src="./img/settings-close.svg" className="settings-icon" onClick={this.toggleSettings} />
+            :
+            <img src="./img/settings.svg" className="settings-icon" onClick={this.toggleSettings} />
+        }
 
         { settingsVisible ? <Settings /> : null }
 

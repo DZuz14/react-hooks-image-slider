@@ -30,10 +30,14 @@ html, body, .app, .main {
     position: absolute;
     top: 15px;
     right: 15px;
-    z-index: 9999;
+    z-index: 99999999999999;
     background: white;
     border-radius: 50%;
     padding: 5px;
+
+    path, polygon {
+      fill: black;
+    }
   }
 
   .settings {
@@ -50,6 +54,10 @@ html, body, .app, .main {
       width: 600px;
       height: 350px;
       background: white;
+
+      @media(max-width: 650px) {
+        width: 300px;
+      }
     }
   }
 }
