@@ -22,6 +22,12 @@ class Settings extends Component {
     return (
       <div className="settings">
         <div className="menu">
+          <h3 style={{
+            marginLeft: '20px',
+            marginBottom: '40px'
+          }}>
+            Work in progress...
+          </h3>
 
           <div className="setting">
             <Switch onClick={() => this.toggleSwitch('dots')} on={this.state.switched} />
