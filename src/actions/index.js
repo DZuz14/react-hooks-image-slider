@@ -11,7 +11,7 @@ import {
 export function getSliderImages() {
   return async (dispatch) => {
     try {
-      let res = await axios.get('slider-config.json')
+      let res = await axios.get('./slider-config.json')
       dispatch(getImagesSuccess(res.data)) // res.data will be an [] of images
     }
     catch(e) {
@@ -46,6 +46,6 @@ export function setIndex(value) {
 export function toggleAutoplay(isActive) {
   return {
     type: TOGGLE_AUTOPLAY,
-    payload: isActive 
+    payload: isActive
   }
 }

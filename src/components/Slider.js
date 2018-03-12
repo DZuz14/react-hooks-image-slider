@@ -4,6 +4,7 @@ import * as actions from '../actions'
 import axios from 'axios'
 
 import Slide from './Slide'
+import Settings from './Settings/index.js'
 import Dots from './Dots'
 import SliderLeftArrow from './SliderLeftArrow'
 import SliderRightArrow from './SliderRightArrow'
@@ -11,16 +12,31 @@ import SliderRightArrow from './SliderRightArrow'
 class Slider extends Component {
   constructor(props) {
     super(props)
+
+    this.state = {
+      settingsVisible: false
+    }
   }
 
   componentDidMount = () => this.props.getSliderImages()
-  renderSlides = () => this.props.images.map((curr, i) => <Slide key={i} image={images[i]} />)
+
+  renderSlides = () => {
+    const { images } = this.props
+    return images.map((curr, i) => <Slide key={i} image={images[i]} />)
+  }
+
+  toggleSettings = () => this.setState({ settingsVisible: !this.state.settingsVisible })
 
   render() {
+    const { settingsVisible } = this.state
     const { images, index, translateValue } = this.props
 
     return (
       <div className="slider">
+        <img src="./img/settings.svg" className="settings-icon" onClick={this.toggleSettings} />
+
+        { settingsVisible ? <Settings /> : null }
+
         <div className="slider-wrapper"
           style={{
             transform: `translateX(${translateValue}px)`,

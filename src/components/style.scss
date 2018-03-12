@@ -24,6 +24,34 @@ html, body, .app, .main {
       width: 100%;
     }
   }
+
+  .settings-icon {
+    cursor: pointer;
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 9999;
+    background: white;
+    border-radius: 50%;
+    padding: 5px;
+  }
+
+  .settings {
+    background: rgba(0,0,0,0.75);
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 999999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .menu {
+      width: 600px;
+      height: 350px;
+      background: white;
+    }
+  }
 }
 
 .slider-right-arrow, .slider-left-arrow {
@@ -93,20 +121,5 @@ html, body, .app, .main {
   }
   .active {
     background: #fff;
-  }
-}
-
-.autoplay {
-  cursor: pointer;
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 5px 10px;
-  background: #ddd;
-  color: #333;
-  font-size: 15px;
-
-  p {
-    margin: 0
   }
 }
