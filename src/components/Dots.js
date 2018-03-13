@@ -1,25 +1,16 @@
 import React from 'react'
 import Dot from './Dot'
 
-const Dots = ({ index, quantity, dotClick }) => {
+const Dots = ({ index, images, dotClick }) => {
 
-  let dots = []
-
-  for(let i = 0; i < quantity; i++) {
-    let isActive = i === index ? true : false
-    
-    dots.push(
-      <Dot key={i}
-        id={i}
-        active={isActive}
-        dotClick={dotClick}
-      />
-    )
-  }
+  const dotsGroup = images.map((image, i) => {
+    let active = (i === index) ? true : false
+    return <Dot key={i} id={i} active={active} dotClick={dotClick} />
+  })
 
   return (
     <div className="dots-container">
-      { dots }
+      { dotsGroup }
     </div>
   )
 }

@@ -52,7 +52,7 @@ class Slider extends Component {
 
         <Dots
           index={index}
-          quantity={images.length}
+          images={images}
           dotClick={this.handleDotClick} />
 
         <SliderLeftArrow prevSlide={this.goToPreviousSlide} />

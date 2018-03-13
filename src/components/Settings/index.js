@@ -23,6 +23,7 @@ class Settings extends Component {
             <Switch onClick={() => toggleSetting('coolButtons')} on={coolButtons} />
           </div>
 
+          Not working at the moment...
         </div>
       </div>
     )
