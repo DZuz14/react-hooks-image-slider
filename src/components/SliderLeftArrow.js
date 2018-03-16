@@ -1,8 +1,8 @@
 import React from 'react'
 
-const SliderLeftArrow = ({ prevSlide }) => {
+const SliderLeftArrow = ({ prevSlide, coolButtons }) => {
   return (
-    <div className="slider-left-arrow" onClick={prevSlide}>
+    <div className={coolButtons ? 'slider-left-arrow cool-buttons' : 'slider-left-arrow'} onClick={prevSlide}>
       <img src="img/slider-left-arrow.svg" />
     </div>
   )

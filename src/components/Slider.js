@@ -33,7 +33,8 @@ class Slider extends Component {
       images,
       index,
       translateValue,
-      showDots
+      showDots,
+      coolButtons
     } = this.props
 
     return (
@@ -61,8 +62,8 @@ class Slider extends Component {
           images={images}
           dotClick={this.handleDotClick} />
 
-        <SliderLeftArrow prevSlide={this.goToPreviousSlide} />
-        <SliderRightArrow nextSlide={this.goToNextSlide} />
+        <SliderLeftArrow prevSlide={this.goToPreviousSlide} coolButtons={coolButtons} />
+        <SliderRightArrow nextSlide={this.goToNextSlide} coolButtons={coolButtons} />
       </div>
     )
   }
@@ -117,7 +118,8 @@ const mapStateToProps = ({ slider, settings }) => {
     images: slider.images,
     index: slider.index,
     translateValue: slider.translateValue,
-    showDots: settings.showDots
+    showDots: settings.showDots,
+    coolButtons: settings.coolButtons
   }
 }
 
