@@ -8,7 +8,7 @@ const initialState = {
 export default function(state = initialState, action) {
   switch(action.type) {
     case TOGGLE_SETTING:
-      return { ...state, [action.payload]: !([action.payload]) }
+      return { ...state, [action.payload]: !state[action.payload] }
   }
   return state
 }

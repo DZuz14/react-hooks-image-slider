@@ -29,7 +29,12 @@ class Slider extends Component {
 
   render() {
     const { settingsVisible } = this.state
-    const { images, index, translateValue } = this.props
+    const {
+      images,
+      index,
+      translateValue,
+      showDots
+    } = this.props
 
     return (
       <div className="slider">
@@ -51,6 +56,7 @@ class Slider extends Component {
         </div>
 
         <Dots
+          visible={showDots}
           index={index}
           images={images}
           dotClick={this.handleDotClick} />
@@ -106,11 +112,12 @@ class Slider extends Component {
 
 } // End Class
 
-const mapStateToProps = ({ slider }) => {
+const mapStateToProps = ({ slider, settings }) => {
   return {
     images: slider.images,
     index: slider.index,
-    translateValue: slider.translateValue
+    translateValue: slider.translateValue,
+    showDots: settings.showDots
   }
 }
 
