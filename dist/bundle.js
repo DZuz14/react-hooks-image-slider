@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "2850a6e2510dd199dc54"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "587524e801c7b5187e2e"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -27527,6 +27527,21 @@ var Slider = function (_Component) {
       return _this.props.getSliderImages();
     };
 
+    _this.componentDidUpdate = function (prevProps, prevState) {
+      var autoplay = _this.state.autoplay;
+
+
+      if (autoplay && prevState.autoplay !== autoplay) {
+        var x = window.setInterval(function () {
+          _this.goToNextSlide();
+        }, 3000);
+        _this.setState({ interval: x });
+      } else if (!autoplay && prevState.autoplay !== autoplay) {
+        var _x = window.clearInterval(_this.state.interval);
+        _this.setState({ interval: _x });
+      }
+    };
+
     _this.renderSlides = function () {
       return _this.props.images.map(function (curr, i) {
         return _react2.default.createElement(_slide2.default, { key: i, image: _this.props.images[i] });
@@ -27535,6 +27550,10 @@ var Slider = function (_Component) {
 
     _this.toggleSettings = function () {
       return _this.setState({ settingsVisible: !_this.state.settingsVisible });
+    };
+
+    _this.toggleAutoplay = function () {
+      return _this.setState({ autoplay: !_this.state.autoplay });
     };
 
     _this.goToPreviousSlide = function () {
@@ -27585,7 +27604,8 @@ var Slider = function (_Component) {
     };
 
     _this.state = {
-      settingsVisible: false
+      settingsVisible: false,
+      autoplay: false
     };
     return _this;
   }
@@ -27593,7 +27613,9 @@ var Slider = function (_Component) {
   (0, _createClass3.default)(Slider, [{
     key: 'render',
     value: function render() {
-      var settingsVisible = this.state.settingsVisible;
+      var _state = this.state,
+          settingsVisible = _state.settingsVisible,
+          autoplay = _state.autoplay;
       var _props = this.props,
           images = _props.images,
           index = _props.index,
@@ -27605,7 +27627,11 @@ var Slider = function (_Component) {
       return _react2.default.createElement(
         'div',
         { className: 'slider' },
-        _react2.default.createElement(_index2.default, { visible: settingsVisible }),
+        _react2.default.createElement(_index2.default, {
+          visible: settingsVisible,
+          toggleAutoplay: this.toggleAutoplay,
+          autoplay: autoplay
+        }),
         _react2.default.createElement(_toggleSettings2.default, { visible: settingsVisible, toggle: this.toggleSettings }),
         _react2.default.createElement(
           'div',
@@ -29377,7 +29403,9 @@ var Settings = function (_Component) {
           visible = _props.visible,
           showDots = _props.showDots,
           coolButtons = _props.coolButtons,
-          toggleSetting = _props.toggleSetting;
+          toggleSetting = _props.toggleSetting,
+          toggleAutoplay = _props.toggleAutoplay,
+          autoplay = _props.autoplay;
 
 
       if (!visible) return null;
@@ -29411,6 +29439,16 @@ var Settings = function (_Component) {
             _react2.default.createElement(_reactToggleSwitch2.default, { onClick: function onClick() {
                 return toggleSetting('coolButtons');
               }, on: coolButtons })
+          ),
+          _react2.default.createElement(
+            'div',
+            { className: 'setting' },
+            _react2.default.createElement(
+              'div',
+              { className: 'text' },
+              'Autoplay'
+            ),
+            _react2.default.createElement(_reactToggleSwitch2.default, { onClick: toggleAutoplay, on: autoplay })
           )
         )
       );
