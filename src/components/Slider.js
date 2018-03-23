@@ -1,30 +1,24 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as actions from '../actions'
-import axios from 'axios'
-
-import Slide from './Slide'
-import Settings from './Settings/index.js'
-import Dots from './Dots'
-import SliderLeftArrow from './SliderLeftArrow'
-import SliderRightArrow from './SliderRightArrow'
+import Slide from './slide'
+import Settings from './settings/index.js'
+import ToggleSettings from './settings/toggle-settings'
+import Dots from './dots/dots'
+import LeftArrow from './arrows/left-arrow'
+import RightArrow from './arrows/right-arrow'
+require('./style.scss')
 
 class Slider extends Component {
   constructor(props) {
     super(props)
-
     this.state = {
       settingsVisible: false
     }
   }
 
   componentDidMount = () => this.props.getSliderImages()
-
-  renderSlides = () => {
-    const { images } = this.props
-    return images.map((curr, i) => <Slide key={i} image={images[i]} />)
-  }
-
+  renderSlides = () => this.props.images.map((curr, i) => <Slide key={i} image={this.props.images[i]} />)
   toggleSettings = () => this.setState({ settingsVisible: !this.state.settingsVisible })
 
   render() {
@@ -39,14 +33,8 @@ class Slider extends Component {
 
     return (
       <div className="slider">
-        {
-          settingsVisible ?
-            <img src="./img/settings-close.svg" className="settings-icon" onClick={this.toggleSettings} />
-            :
-            <img src="./img/settings.svg" className="settings-icon" onClick={this.toggleSettings} />
-        }
-
-        { settingsVisible ? <Settings /> : null }
+        <Settings visible={settingsVisible} />
+        <ToggleSettings visible={settingsVisible} toggle={this.toggleSettings} />
 
         <div className="slider-wrapper"
           style={{
@@ -60,22 +48,19 @@ class Slider extends Component {
           visible={showDots}
           index={index}
           images={images}
-          dotClick={this.handleDotClick} />
+          dotClick={this.handleDotClick}
+        />
 
-        <SliderLeftArrow prevSlide={this.goToPreviousSlide} coolButtons={coolButtons} />
-        <SliderRightArrow nextSlide={this.goToNextSlide} coolButtons={coolButtons} />
+        <LeftArrow prevSlide={this.goToPreviousSlide} coolButtons={coolButtons} />
+        <RightArrow nextSlide={this.goToNextSlide} coolButtons={coolButtons} />
       </div>
     )
   }
 
-  /**
-  * Below section handles arrow and dot click events, and getting the current width of the slide.
-  */
+
   goToPreviousSlide = () => {
     const { index, translateValue, setTranslateValue, setIndex } = this.props
-
-    if(index === 0)
-      return
+    if(index === 0) return
 
     setTranslateValue(translateValue + this.slideWidth())
     setIndex(index - 1)
@@ -83,11 +68,9 @@ class Slider extends Component {
 
   goToNextSlide = () => {
     const { images, index, translateValue, setTranslateValue, setIndex } = this.props
-
     if(index === images.length - 1) {
       setTranslateValue(0)
-      setIndex(0)
-      return
+      return setIndex(0)
     }
     setTranslateValue(translateValue - this.slideWidth())
     setIndex(index + 1)
@@ -95,8 +78,7 @@ class Slider extends Component {
 
   handleDotClick = i => {
     const { index, translateValue, setTranslateValue, setIndex } = this.props
-    if(i === index)
-      return
+    if(i === index) return
 
     if(i > index)
       setTranslateValue(-(i * this.slideWidth()))
@@ -106,10 +88,7 @@ class Slider extends Component {
     setIndex(i)
   }
 
-  slideWidth = () => {
-    const slide = document.querySelector('.slide')
-    return slide.clientWidth
-  }
+  slideWidth = () => document.querySelector('.slide').clientWidth
 
 } // End Class
 

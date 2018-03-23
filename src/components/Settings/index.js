@@ -7,7 +7,14 @@ require('./style.scss')
 class Settings extends Component {
 
   render() {
-    const { showDots, coolButtons, toggleSetting } = this.props
+    const {
+      visible,
+      showDots,
+      coolButtons,
+      toggleSetting
+    } = this.props
+
+    if(!visible) return null
 
     return (
       <div className="settings">

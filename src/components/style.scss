@@ -62,7 +62,7 @@ html, body, .app, .main {
   }
 }
 
-.slider-right-arrow, .slider-left-arrow {
+.right-arrow, .left-arrow {
   height: 50px;
   width: 50px;
   display: flex;
@@ -84,7 +84,7 @@ html, body, .app, .main {
   border: 2px solid white;
 }
 
-.slider-right-arrow {
+.right-arrow {
   position: absolute;
   top: 50%;
   right: 25px;
@@ -100,7 +100,7 @@ html, body, .app, .main {
   }
 }
 
-.slider-left-arrow {
+.left-arrow {
   position: absolute;
   top: 50%;
   left: 25px;
