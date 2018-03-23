@@ -11,7 +11,9 @@ class Settings extends Component {
       visible,
       showDots,
       coolButtons,
-      toggleSetting
+      toggleSetting,
+      toggleAutoplay,
+      autoplay
     } = this.props
 
     if(!visible) return null
@@ -28,6 +30,11 @@ class Settings extends Component {
           <div className="setting">
             <div className="text">Cool Buttons</div>
             <Switch onClick={() => toggleSetting('coolButtons')} on={coolButtons} />
+          </div>
+
+          <div className="setting">
+            <div className="text">Autoplay</div>
+            <Switch onClick={toggleAutoplay} on={autoplay} />
           </div>
 
         </div>

@@ -13,16 +13,34 @@ class Slider extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      settingsVisible: false
+      settingsVisible: false,
+      autoplay: false
     }
   }
 
   componentDidMount = () => this.props.getSliderImages()
+
+  componentDidUpdate = (prevProps, prevState) => {
+    const { autoplay } = this.state
+
+    if(autoplay && prevState.autoplay !== autoplay) {
+      let x = window.setInterval(() => {
+                this.goToNextSlide()
+              }, 3000)
+      this.setState({ interval : x })
+    }
+    else if(!autoplay && prevState.autoplay !== autoplay) {
+      let x = window.clearInterval(this.state.interval)
+      this.setState({ interval : x })
+    }
+  }
+
   renderSlides = () => this.props.images.map((curr, i) => <Slide key={i} image={this.props.images[i]} />)
   toggleSettings = () => this.setState({ settingsVisible: !this.state.settingsVisible })
+  toggleAutoplay = () => this.setState({ autoplay: !this.state.autoplay })
 
   render() {
-    const { settingsVisible } = this.state
+    const { settingsVisible, autoplay } = this.state
     const {
       images,
       index,
@@ -33,7 +51,11 @@ class Slider extends Component {
 
     return (
       <div className="slider">
-        <Settings visible={settingsVisible} />
+        <Settings
+          visible={settingsVisible}
+          toggleAutoplay={this.toggleAutoplay}
+          autoplay={autoplay}
+        />
         <ToggleSettings visible={settingsVisible} toggle={this.toggleSettings} />
 
         <div className="slider-wrapper"
