@@ -5,6 +5,7 @@
 }
 
 .menu {
+  position: relative;
   padding: 25px 0 0 25px;
 
   .setting {
@@ -18,7 +19,17 @@
     .text {
       width: 100px;
     }
+  }
 
+  button {
+    position: absolute;
+    bottom: 25px;
+    color: #fff;
+    background-color: #31b0d5;
+    border-color: #2aabd2;
+    padding: 8px 12px;
+    font-size: 15px;
+    cursor: pointer;
   }
 
 }

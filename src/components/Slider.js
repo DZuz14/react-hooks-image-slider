@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import * as actions from '../actions'
 import Slide from './slide'
-import Settings from './settings/index.js'
+import Settings from './settings'
 import ToggleSettings from './settings/toggle-settings'
 import Dots from './dots/dots'
 import LeftArrow from './arrows/left-arrow'
@@ -23,6 +23,7 @@ class Slider extends Component {
   componentDidUpdate = (prevProps, prevState) => {
     const { autoplay } = this.state
 
+    // If autoplay was chosen, and the previous autoplay state was false, set the interval.
     if(autoplay && prevState.autoplay !== autoplay) {
       let x = window.setInterval(() => {
                 this.goToNextSlide()
@@ -35,9 +36,23 @@ class Slider extends Component {
     }
   }
 
-  renderSlides = () => this.props.images.map((curr, i) => <Slide key={i} image={this.props.images[i]} />)
-  toggleSettings = () => this.setState({ settingsVisible: !this.state.settingsVisible })
-  toggleAutoplay = () => this.setState({ autoplay: !this.state.autoplay })
+  renderSlides = () => (
+    this.props.images.map((curr, i) =>
+      <Slide key={i} image={this.props.images[i]} />
+    )
+  )
+
+  toggleSettings = () => {
+    this.setState({
+      settingsVisible: !this.state.settingsVisible
+    })
+  }
+
+  toggleAutoplay = () => {
+    this.setState({
+      autoplay: !this.state.autoplay
+    })
+  }
 
   render() {
     const { settingsVisible, autoplay } = this.state
@@ -51,12 +66,18 @@ class Slider extends Component {
 
     return (
       <div className="slider">
+
         <Settings
           visible={settingsVisible}
           toggleAutoplay={this.toggleAutoplay}
           autoplay={autoplay}
+          toggleModal={this.toggleSettings}
         />
-        <ToggleSettings visible={settingsVisible} toggle={this.toggleSettings} />
+
+        <ToggleSettings
+          visible={settingsVisible}
+          toggle={this.toggleSettings}
+        />
 
         <div className="slider-wrapper"
           style={{

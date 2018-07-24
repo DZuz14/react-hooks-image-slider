@@ -13,7 +13,8 @@ class Settings extends Component {
       coolButtons,
       toggleSetting,
       toggleAutoplay,
-      autoplay
+      autoplay,
+      toggleModal
     } = this.props
 
     if(!visible) return null
@@ -37,6 +38,9 @@ class Settings extends Component {
             <Switch onClick={toggleAutoplay} on={autoplay} />
           </div>
 
+          <button onClick={toggleModal}>
+            Close Settings
+          </button>
         </div>
       </div>
     )

@@ -61,7 +61,7 @@
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "587524e801c7b5187e2e"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "d7b603abebcbb2de74ec"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -8211,7 +8211,7 @@ exports = module.exports = __webpack_require__(154)(false);
 
 
 // module
-exports.push([module.i, ".switch {\n  border: 1px solid #ccc;\n  width: 50px;\n  height: 26px;\n  border-radius: 13px;\n  cursor: pointer;\n  display: inline-block; }\n\n.switch-toggle {\n  border: 1px solid #999;\n  -webkit-box-shadow: 1px 1px 1px #ccc;\n          box-shadow: 1px 1px 1px #ccc;\n  width: 25px;\n  height: 24px;\n  left: 0;\n  border-radius: 12px;\n  background: #fff;\n  position: relative;\n  -webkit-transition: left .2s ease-in-out;\n  transition: left .2s ease-in-out; }\n\n.switch.on {\n  background: green; }\n\n.switch.on .switch-toggle {\n  left: 23px; }\n\n.switch.disabled {\n  cursor: not-allowed; }\n\n.switch {\n  -webkit-transform: translate(30px, -3px);\n          transform: translate(30px, -3px); }\n\n.menu {\n  padding: 25px 0 0 25px; }\n  .menu .setting {\n    font-size: 20px;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex; }\n    .menu .setting:not(:last-of-type) {\n      margin-bottom: 20px; }\n    .menu .setting .text {\n      width: 100px; }\n", ""]);
+exports.push([module.i, ".switch {\n  border: 1px solid #ccc;\n  width: 50px;\n  height: 26px;\n  border-radius: 13px;\n  cursor: pointer;\n  display: inline-block; }\n\n.switch-toggle {\n  border: 1px solid #999;\n  -webkit-box-shadow: 1px 1px 1px #ccc;\n          box-shadow: 1px 1px 1px #ccc;\n  width: 25px;\n  height: 24px;\n  left: 0;\n  border-radius: 12px;\n  background: #fff;\n  position: relative;\n  -webkit-transition: left .2s ease-in-out;\n  transition: left .2s ease-in-out; }\n\n.switch.on {\n  background: green; }\n\n.switch.on .switch-toggle {\n  left: 23px; }\n\n.switch.disabled {\n  cursor: not-allowed; }\n\n.switch {\n  -webkit-transform: translate(30px, -3px);\n          transform: translate(30px, -3px); }\n\n.menu {\n  position: relative;\n  padding: 25px 0 0 25px; }\n  .menu .setting {\n    font-size: 20px;\n    display: -webkit-box;\n    display: -ms-flexbox;\n    display: flex; }\n    .menu .setting:not(:last-of-type) {\n      margin-bottom: 20px; }\n    .menu .setting .text {\n      width: 100px; }\n  .menu button {\n    position: absolute;\n    bottom: 25px;\n    color: #fff;\n    background-color: #31b0d5;\n    border-color: #2aabd2;\n    padding: 8px 12px;\n    font-size: 15px;\n    cursor: pointer; }\n", ""]);
 
 // exports
 
@@ -27489,9 +27489,9 @@ var _slide = __webpack_require__(348);
 
 var _slide2 = _interopRequireDefault(_slide);
 
-var _index = __webpack_require__(349);
+var _settings = __webpack_require__(349);
 
-var _index2 = _interopRequireDefault(_index);
+var _settings2 = _interopRequireDefault(_settings);
 
 var _toggleSettings = __webpack_require__(354);
 
@@ -27530,6 +27530,7 @@ var Slider = function (_Component) {
     _this.componentDidUpdate = function (prevProps, prevState) {
       var autoplay = _this.state.autoplay;
 
+      // If autoplay was chosen, and the previous autoplay state was false, set the interval.
 
       if (autoplay && prevState.autoplay !== autoplay) {
         var x = window.setInterval(function () {
@@ -27549,11 +27550,15 @@ var Slider = function (_Component) {
     };
 
     _this.toggleSettings = function () {
-      return _this.setState({ settingsVisible: !_this.state.settingsVisible });
+      _this.setState({
+        settingsVisible: !_this.state.settingsVisible
+      });
     };
 
     _this.toggleAutoplay = function () {
-      return _this.setState({ autoplay: !_this.state.autoplay });
+      _this.setState({
+        autoplay: !_this.state.autoplay
+      });
     };
 
     _this.goToPreviousSlide = function () {
@@ -27627,12 +27632,16 @@ var Slider = function (_Component) {
       return _react2.default.createElement(
         'div',
         { className: 'slider' },
-        _react2.default.createElement(_index2.default, {
+        _react2.default.createElement(_settings2.default, {
           visible: settingsVisible,
           toggleAutoplay: this.toggleAutoplay,
-          autoplay: autoplay
+          autoplay: autoplay,
+          toggleModal: this.toggleSettings
         }),
-        _react2.default.createElement(_toggleSettings2.default, { visible: settingsVisible, toggle: this.toggleSettings }),
+        _react2.default.createElement(_toggleSettings2.default, {
+          visible: settingsVisible,
+          toggle: this.toggleSettings
+        }),
         _react2.default.createElement(
           'div',
           { className: 'slider-wrapper',
@@ -29405,7 +29414,8 @@ var Settings = function (_Component) {
           coolButtons = _props.coolButtons,
           toggleSetting = _props.toggleSetting,
           toggleAutoplay = _props.toggleAutoplay,
-          autoplay = _props.autoplay;
+          autoplay = _props.autoplay,
+          toggleModal = _props.toggleModal;
 
 
       if (!visible) return null;
@@ -29449,6 +29459,11 @@ var Settings = function (_Component) {
               'Autoplay'
             ),
             _react2.default.createElement(_reactToggleSwitch2.default, { onClick: toggleAutoplay, on: autoplay })
+          ),
+          _react2.default.createElement(
+            'button',
+            { onClick: toggleModal },
+            'Close Settings'
           )
         )
       );
