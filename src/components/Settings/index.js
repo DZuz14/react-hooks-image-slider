@@ -5,16 +5,13 @@ import Switch from 'react-toggle-switch'
 require('./style.scss')
 
 class Settings extends Component {
-
   render() {
     const {
       visible,
       showDots,
       coolButtons,
-      toggleSetting,
-      toggleAutoplay,
       autoplay,
-      toggleModal
+      toggleSetting
     } = this.props
 
     if(!visible) return null
@@ -25,20 +22,33 @@ class Settings extends Component {
 
           <div className="setting">
             <div className="text">Show Dots</div>
-            <Switch onClick={() => toggleSetting('showDots')} on={showDots} />
+            <Switch
+              onClick={() => toggleSetting('showDots')}
+              on={showDots}
+            />
           </div>
 
           <div className="setting">
             <div className="text">Cool Buttons</div>
-            <Switch onClick={() => toggleSetting('coolButtons')} on={coolButtons} />
+            <Switch
+              onClick={() => toggleSetting('coolButtons')}
+              on={coolButtons}
+            />
           </div>
 
           <div className="setting">
             <div className="text">Autoplay</div>
-            <Switch onClick={toggleAutoplay} on={autoplay} />
+            <Switch
+              onClick={() => toggleSetting('autoplay')}
+              on={autoplay}
+              data-setting="autoplay"
+            />
           </div>
 
-          <button onClick={toggleModal}>
+          <button
+            onClick={() => toggleSetting('visible')}
+            data-setting="visible"
+          >
             Close Settings
           </button>
         </div>

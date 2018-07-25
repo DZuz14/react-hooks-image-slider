@@ -1,10 +1,14 @@
 import React from 'react'
 
-const ToggleSettings = ({ visible, toggle }) => {
-  if(visible)
-    return <img src="./img/settings-close.svg" className="settings-icon" onClick={toggle} />
-  else
-    return <img src="./img/settings.svg" className="settings-icon" onClick={toggle} />
-}
+const close = './img/settings-close.svg'
+const gearIcon = './img/settings.svg'
+
+const ToggleSettings = ({ visible, toggleSetting }) => (
+  <img
+    src={visible ? close : gearIcon}
+    className="settings-icon"
+    onClick={() => toggleSetting('visible')}
+  />
+)
 
 export default ToggleSettings

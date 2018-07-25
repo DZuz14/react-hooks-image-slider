@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import * as actions from '../actions'
+import { bindActionCreators } from 'redux'
+import * as SliderActions from '../actions'
+import * as SettingsActions from '../actions/settings'
 import Slide from './slide'
 import Settings from './settings'
 import ToggleSettings from './settings/toggle-settings'
@@ -10,27 +12,23 @@ import RightArrow from './arrows/right-arrow'
 require('./style.scss')
 
 class Slider extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      settingsVisible: false,
-      autoplay: false
-    }
+  state = {}
+
+  componentDidMount = () => {
+    this.props.getSliderImages()
   }
 
-  componentDidMount = () => this.props.getSliderImages()
-
   componentDidUpdate = (prevProps, prevState) => {
-    const { autoplay } = this.state
+    const { autoplay } = this.props
 
     // If autoplay was chosen, and the previous autoplay state was false, set the interval.
-    if(autoplay && prevState.autoplay !== autoplay) {
+    if(autoplay && prevProps.autoplay !== autoplay) {
       let x = window.setInterval(() => {
                 this.goToNextSlide()
               }, 3000)
       this.setState({ interval : x })
     }
-    else if(!autoplay && prevState.autoplay !== autoplay) {
+    else if(!autoplay && prevProps.autoplay !== autoplay) {
       let x = window.clearInterval(this.state.interval)
       this.setState({ interval : x })
     }
@@ -42,26 +40,16 @@ class Slider extends Component {
     )
   )
 
-  toggleSettings = () => {
-    this.setState({
-      settingsVisible: !this.state.settingsVisible
-    })
-  }
-
-  toggleAutoplay = () => {
-    this.setState({
-      autoplay: !this.state.autoplay
-    })
-  }
-
   render() {
-    const { settingsVisible, autoplay } = this.state
     const {
       images,
       index,
       translateValue,
+      toggleSetting,
       showDots,
-      coolButtons
+      coolButtons,
+      settingsVisible,
+      autoplay
     } = this.props
 
     return (
@@ -69,14 +57,12 @@ class Slider extends Component {
 
         <Settings
           visible={settingsVisible}
-          toggleAutoplay={this.toggleAutoplay}
           autoplay={autoplay}
-          toggleModal={this.toggleSettings}
         />
 
         <ToggleSettings
           visible={settingsVisible}
-          toggle={this.toggleSettings}
+          toggleSetting={toggleSetting}
         />
 
         <div className="slider-wrapper"
@@ -84,7 +70,9 @@ class Slider extends Component {
             transform: `translateX(${translateValue}px)`,
             transition: 'transform ease-out 0.45s'
           }}>
-          { this.renderSlides() }
+            {
+              this.renderSlides()
+            }
         </div>
 
         <Dots
@@ -94,8 +82,15 @@ class Slider extends Component {
           dotClick={this.handleDotClick}
         />
 
-        <LeftArrow prevSlide={this.goToPreviousSlide} coolButtons={coolButtons} />
-        <RightArrow nextSlide={this.goToNextSlide} coolButtons={coolButtons} />
+        <LeftArrow
+          prevSlide={this.goToPreviousSlide}
+          coolButtons={coolButtons}
+        />
+
+        <RightArrow
+          nextSlide={this.goToNextSlide}
+          coolButtons={coolButtons}
+        />
       </div>
     )
   }
@@ -137,12 +132,23 @@ class Slider extends Component {
 
 const mapStateToProps = ({ slider, settings }) => {
   return {
+    // slider
     images: slider.images,
     index: slider.index,
     translateValue: slider.translateValue,
+    // settings
     showDots: settings.showDots,
-    coolButtons: settings.coolButtons
+    coolButtons: settings.coolButtons,
+    settingsVisible: settings.visible,
+    autoplay: settings.autoplay
   }
 }
 
-export default connect(mapStateToProps, actions)(Slider)
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({
+    ...SliderActions,
+    ...SettingsActions
+  }, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Slider)
