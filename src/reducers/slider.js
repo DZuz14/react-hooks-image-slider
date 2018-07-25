@@ -1,15 +1,13 @@
 import {
   GET_IMAGES_SUCCESS,
   SET_TRANSLATE_VALUE,
-  SET_INDEX,
-  TOGGLE_AUTOPLAY
+  SET_INDEX
 } from '../actions/types'
 
 const initialState = {
   images: [],
   index: 0,
-  translateValue: 0,
-  autoplay: false
+  translateValue: 0
 }
 
 export default function(state = initialState, action) {
@@ -20,8 +18,6 @@ export default function(state = initialState, action) {
       return { ...state, translateValue: action.payload }
     case SET_INDEX:
       return { ...state, index: action.payload }
-    case TOGGLE_AUTOPLAY:
-      return { ...state, autoplay: action.payload }
   }
   return state
 }

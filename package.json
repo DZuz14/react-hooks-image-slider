@@ -10,7 +10,7 @@
     "start": "node server.js",
     "dev": "webpack-dev-server --hot --inline",
     "test": "jest --config ./jest-config.js",
-    "build": "webpack",
+    "build": "webpack"
   },
   "browsersList": [
     "last 3 versions",
