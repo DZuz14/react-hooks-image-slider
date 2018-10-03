@@ -11,34 +11,42 @@ import LeftArrow from './arrows/left-arrow'
 import RightArrow from './arrows/right-arrow'
 require('./style.scss')
 
-class Slider extends Component {
-  state = {}
-
-  componentDidMount = () => {
-    this.props.getSliderImages()
+export class Slider extends Component {
+  state = {
+    interval: null
   }
 
-  componentDidUpdate = (prevProps, prevState) => {
+  componentDidMount = () => this.props.getSliderImages()
+
+  componentDidUpdate = prevProps => {
     const { autoplay } = this.props
 
-    // If autoplay was chosen, and the previous autoplay state was false, set the interval.
+    // If autoplay was chosen, and the previous autoplay state was false, activate autoplay
+    // via a timer set on the window object
     if(autoplay && prevProps.autoplay !== autoplay) {
-      let x = window.setInterval(() => {
+      const interval = window.setInterval(() => {
                 this.goToNextSlide()
               }, 3000)
-      this.setState({ interval : x })
+      this.setState({ interval })
     }
+
+    // If autoplay is was set to off, and the previous autoplay was not false, 
+    // clear the timer from the window object
     else if(!autoplay && prevProps.autoplay !== autoplay) {
-      let x = window.clearInterval(this.state.interval)
-      this.setState({ interval : x })
+      const interval = window.clearInterval(this.state.interval)
+      this.setState({ interval })
     }
   }
 
-  renderSlides = () => (
-    this.props.images.map((curr, i) =>
-      <Slide key={i} image={this.props.images[i]} />
+  renderSlides = () => {
+    const { images } = this.props
+    return images.map((curr, i) =>
+      <Slide 
+        key={i} 
+        image={this.props.images[i]} 
+      />
     )
-  )
+  }
 
   render() {
     const {
@@ -70,9 +78,7 @@ class Slider extends Component {
             transform: `translateX(${translateValue}px)`,
             transition: 'transform ease-out 0.45s'
           }}>
-            {
-              this.renderSlides()
-            }
+            { this.renderSlides() }
         </div>
 
         <Dots
@@ -97,36 +103,68 @@ class Slider extends Component {
 
 
   goToPreviousSlide = () => {
-    const { index, translateValue, setTranslateValue, setIndex } = this.props
-    if(index === 0) return
+    const { 
+      index, 
+      translateValue, 
+      setTranslateValue, 
+      setIndex 
+    } = this.props
+
+    if(index === 0)
+      return
 
     setTranslateValue(translateValue + this.slideWidth())
     setIndex(index - 1)
   }
 
   goToNextSlide = () => {
-    const { images, index, translateValue, setTranslateValue, setIndex } = this.props
+    const { 
+      images, 
+      index, 
+      translateValue, 
+      setTranslateValue, 
+      setIndex 
+    } = this.props
+
     if(index === images.length - 1) {
       setTranslateValue(0)
       return setIndex(0)
     }
+
     setTranslateValue(translateValue - this.slideWidth())
     setIndex(index + 1)
   }
 
   handleDotClick = i => {
-    const { index, translateValue, setTranslateValue, setIndex } = this.props
-    if(i === index) return
+    const { 
+      index, 
+      translateValue, 
+      setTranslateValue, 
+      setIndex 
+    } = this.props
 
-    if(i > index)
-      setTranslateValue(-(i * this.slideWidth()))
-    else
-      setTranslateValue(translateValue + ((index - i) * (this.slideWidth())))
+    // Do nothing if someone clicks on the currently active dot
+    if(i === index) 
+      return
+
+    // If the number taken from the i argument passed into handleDotClick is
+    // less than the currently active dot, we obviously need to move backwards to a previous slide.
+    if(i > index) {
+      setTranslateValue(-i * this.slideWidth())
+    }    
+    // We need to go forward to a particular slide
+    else {
+      setTranslateValue(
+        translateValue + (index - i) * this.slideWidth()
+      )
+    }
 
     setIndex(i)
   }
 
-  slideWidth = () => document.querySelector('.slide').clientWidth
+  slideWidth = () => {
+    return document.querySelector('.slide').clientWidth
+  }
 
 } // End Class
 
