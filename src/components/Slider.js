@@ -16,7 +16,28 @@ export class Slider extends Component {
     interval: null
   }
 
-  componentDidMount = () => this.props.getSliderImages()
+  updateDimensions = () => {
+    var w = window,
+        d = document,
+        documentElement = d.documentElement,
+        body = d.getElementsByTagName('body')[0],
+        width = w.innerWidth || documentElement.clientWidth || body.clientWidth,
+        height = w.innerHeight|| documentElement.clientHeight|| body.clientHeight;
+    
+    const { 
+      index, 
+      setTranslateValue
+    } = this.props
+    setTranslateValue(-index * width)
+
+  }
+  componentDidMount = () => {
+    this.props.getSliderImages();
+    window.addEventListener("resize", this.updateDimensions);
+  }
+  componentWillUnmount = () => {
+    window.removeEventListener("resize", this.updateDimensions);
+  }
 
   componentDidUpdate = prevProps => {
     const { autoplay } = this.props
@@ -59,6 +80,7 @@ export class Slider extends Component {
       settingsVisible,
       autoplay
     } = this.props
+    console.log('translateValue', translateValue, this.props);
 
     return (
       <div className="slider">
