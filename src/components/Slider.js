@@ -80,7 +80,6 @@ export class Slider extends Component {
       settingsVisible,
       autoplay
     } = this.props
-    console.log('translateValue', translateValue, this.props);
 
     return (
       <div className="slider">
